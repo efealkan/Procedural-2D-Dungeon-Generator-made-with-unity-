@@ -427,7 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc0367a6f37f714a8161dd2ba8ec4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoomsRange: {x: 20, y: 30}
-  roomSizeXRange: {x: 20, y: 30}
-  roomSizeYRange: {x: 10, y: 20}
-  radius: 100
+  numberOfRoomsRange: {x: 5, y: 20}
+  averageRoomSize: 15
+  roomDistanceSample: 5
