@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public Tilemap tilemap;
-    public TileBase tilebase;
-    
     private DungeonGeneratorData GeneratorData;
+    private DrawComponents DrawHandler;
 
     private Basemap basemap;
     private List<Chunk> chunks = new List<Chunk>();
     private List<Room> rooms = new List<Room>();
+    private List<Corridor> corridors = new List<Corridor>();
     
     private Vector2Int roomSizeRange;
     private int numberOfRooms;
@@ -21,12 +21,14 @@ public class DungeonGenerator : MonoBehaviour
     private void Awake()
     {
         GeneratorData = GetComponent<DungeonGeneratorData>();
-        numberOfRooms = RandomInt(GeneratorData.numberOfRoomsRange.x, GeneratorData.numberOfRoomsRange.y);
-        roomSizeRange = new Vector2Int(GeneratorData.averageRoomSize - 5, GeneratorData.averageRoomSize + 5);
+        DrawHandler = GetComponent<DrawComponents>();
+        numberOfRooms = Utils.RandomInt(GeneratorData.numberOfRoomsRange.x, GeneratorData.numberOfRoomsRange.y);
+        roomSizeRange = new Vector2Int(GeneratorData.averageRoomSize - 2, GeneratorData.averageRoomSize + 5);
 
         GenerateBasemap();
         GenerateChunks();
         GenerateRooms();
+        GenerateCorridors();
     }
 
     private void GenerateBasemap()
@@ -70,6 +72,8 @@ public class DungeonGenerator : MonoBehaviour
             
             for (int c = 0; c < basemap.numberOfCols; c++)
             {
+                Debug.Log("Generating Chunks");
+
                 if (c != 0) curX += chunkSizeX;
                 
                 Vector2Int topLeft = new Vector2Int(curX, curY);
@@ -85,55 +89,52 @@ public class DungeonGenerator : MonoBehaviour
 
     private void GenerateRooms()
     {
-        List<Chunk> availableChunks = chunks;
-        
+        List<Chunk> availableChunks = chunks.ToList();
+
         for (int i = 0; i < numberOfRooms; i++)
         {
-            int index = RandomInt(0, availableChunks.Count);
+            Debug.Log("Generating Rooms");
+
+            int index = Utils.RandomInt(0, availableChunks.Count);
             Chunk chunk = availableChunks[index];
-            chunks.RemoveAt(index);
+            availableChunks.RemoveAt(index);
+            
+            int distanceSample = Mathf.CeilToInt((float) GeneratorData.roomDistanceSample / 2);
 
-            int roomSizeX = RandomInt(roomSizeRange.x, roomSizeRange.y);
-            int roomSizeY = RandomInt(roomSizeRange.x, roomSizeRange.y);
+            int roomSizeX = Utils.RandomInt(roomSizeRange.x, roomSizeRange.y);
+            int roomSizeY = Utils.RandomInt(roomSizeRange.x, roomSizeX);
 
-            int roomSizeXHalf = Mathf.CeilToInt((float) roomSizeX / 2);
-            int roomSizeYHalf = Mathf.CeilToInt((float) roomSizeY / 2);
+            if (roomSizeX % 2 == 0) roomSizeX += 1;
+            if (roomSizeY % 2 == 0) roomSizeY += 1;
 
+            int roomSizeXHalf = Mathf.CeilToInt((float) roomSizeX / 2) + distanceSample;
+            int roomSizeYHalf = Mathf.CeilToInt((float) roomSizeY / 2) + distanceSample;
+            
             int xLeft = chunk.topLeftPos.x + roomSizeXHalf;
             int xRight = chunk.topRightPos.x - roomSizeXHalf;
             int yTop = chunk.topLeftPos.y - roomSizeYHalf;
             int yBot = chunk.bottomLeftPos.y + roomSizeYHalf;
 
-            int centreX = RandomInt(xLeft, xRight);
-            int centreY = RandomInt(yBot, yTop);
+            int centreX = Utils.RandomInt(xLeft, xRight);
+            int centreY = Utils.RandomInt(yBot, yTop);
             
             Room room = new Room(i, new Vector2Int(centreX, centreY), new Vector2Int(roomSizeX, roomSizeY));
             rooms.Add(room);
             chunk.SetRoom(room);
             
-            DrawRoom(room);
+            DrawHandler.DrawRoom(room);
         }
     }
 
-    private void DrawRoom(Room room)
+    private void GenerateCorridors()
     {
-        Vector2Int centre = room.centrePos;
-        Vector2Int size = room.size;
+        corridors = MST.CreateCorridors(rooms, chunks[0].size);
+        DrawHandler.DrawCorridorRays(corridors);
 
-        int topLeftPosX = centre.x - size.x / 2;
-        int topLeftPosY = centre.y + size.y / 2;
-
-        for (int x = 0; x < size.x; x++)
+        foreach (var corridor in corridors)
         {
-            for (int y = 0; y < size.y; y++)
-            {
-                Vector3Int pos = new Vector3Int(topLeftPosX + x, topLeftPosY + y, 0);
-                tilemap.SetTile(pos, tilebase);
-            }
+            corridor.SetCorridorWidth(GeneratorData.corridorWidth);
+            DrawHandler.DrawCorridor(corridor);
         }
     }
-
-    private Vector3Int Vector2IntTo3(Vector2Int v) => new Vector3Int(v.x, v.y, 0);
-    private float RandomFloat(float min = 0f, float max = 1f) => Random.Range(min, max);
-    private int RandomInt(float min, float max) => (int) Random.Range(min, max);
 }

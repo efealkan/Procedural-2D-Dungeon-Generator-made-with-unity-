@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Basemap : MonoBehaviour
+public class Basemap
 {
     public int numberOfRows;
     public int numberOfCols;
