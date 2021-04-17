@@ -5,8 +5,8 @@ using UnityEngine;
 public class DungeonGeneratorData : MonoBehaviour
 {
     public Vector2Int numberOfRoomsRange;
-    public int roomDistanceSample;
     
+    [Min(2)] public int roomDistanceSample;
     [Min(6)] public int averageRoomSize;
-    [Min(2)] public int corridorWidth;
+    [Range(2, 5)] public int corridorWidth;
 }

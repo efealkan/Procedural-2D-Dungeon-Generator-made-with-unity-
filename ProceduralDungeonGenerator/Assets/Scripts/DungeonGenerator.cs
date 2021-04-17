@@ -103,7 +103,8 @@ public class DungeonGenerator : MonoBehaviour
 
             int roomSizeX = Utils.RandomInt(roomSizeRange.x, roomSizeRange.y);
             int roomSizeY = Utils.RandomInt(roomSizeRange.x, roomSizeX);
-
+            
+            //Make the size odd
             if (roomSizeX % 2 == 0) roomSizeX += 1;
             if (roomSizeY % 2 == 0) roomSizeY += 1;
 
@@ -129,7 +130,7 @@ public class DungeonGenerator : MonoBehaviour
     private void GenerateCorridors()
     {
         corridors = MST.CreateCorridors(rooms, chunks[0].size);
-        DrawHandler.DrawCorridorRays(corridors);
+        DrawHandler.SetupCorridorRays(corridors);
 
         foreach (var corridor in corridors)
         {
