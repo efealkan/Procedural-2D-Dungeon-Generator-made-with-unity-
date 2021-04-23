@@ -29,6 +29,7 @@ public class DungeonGenerator : MonoBehaviour
         GenerateChunks();
         GenerateRooms();
         GenerateCorridors();
+        DrawCall();
     }
 
     private void GenerateBasemap()
@@ -122,8 +123,6 @@ public class DungeonGenerator : MonoBehaviour
             Room room = new Room(i, new Vector2Int(centreX, centreY), new Vector2Int(roomSizeX, roomSizeY));
             rooms.Add(room);
             chunk.SetRoom(room);
-            
-            DrawHandler.DrawRoom(room);
         }
     }
 
@@ -135,6 +134,18 @@ public class DungeonGenerator : MonoBehaviour
         foreach (var corridor in corridors)
         {
             corridor.SetCorridorWidth(GeneratorData.corridorWidth);
+        }
+    }
+
+    private void DrawCall()
+    {
+        foreach (var room in rooms)
+        {
+            DrawHandler.DrawRoom(room);
+        }
+
+        foreach (var corridor in corridors)
+        {
             DrawHandler.DrawCorridor(corridor);
         }
     }

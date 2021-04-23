@@ -549,6 +549,7 @@ GameObject:
   - component: {fileID: 1763139036}
   - component: {fileID: 1763139035}
   - component: {fileID: 1763139037}
+  - component: {fileID: 1763139038}
   m_Layer: 0
   m_Name: Dungeon Generator
   m_TagString: Untagged
@@ -598,6 +599,7 @@ MonoBehaviour:
   roomDistanceSample: 5
   averageRoomSize: 10
   corridorWidth: 3
+  oldnessLevel: 1
 --- !u!114 &1763139037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,14 +612,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81547fc7878de0149a7de0dbe2f5162f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tilemap_Base: {fileID: 83221138}
-  Tilemap_Wall: {fileID: 2024260212}
-  Tilemap_Doorway: {fileID: 1081208008}
-  Tilebase_Ground: []
-  tilebase: {fileID: 11400000, guid: 03b57f025898c194dbec6eed58ae508c, type: 2}
-  tilebase2: {fileID: 11400000, guid: 03b57f025898c194dbec6eed58ae508c, type: 2}
+  TILEMAP_BASE: {fileID: 83221138}
+  TILEMAP_WALL: {fileID: 2024260212}
+  TILESET_MAP:
+    DEFAULT_GROUND_TILEBASE: {fileID: 11400000, guid: c0cb4d7cc49f1f346ad6d0b8860dd43b,
+      type: 2}
+    ALTERNATIVE_GROUND_TILEBASE:
+    - {fileID: 11400000, guid: c824464139a112d4a8dcac56b2b53ee0, type: 2}
+    - {fileID: 11400000, guid: 92dc749e3f2fa344f9aac5d1f8b9eed5, type: 2}
+    - {fileID: 11400000, guid: ec9089f56db9ee84ba8c9460cdb27b94, type: 2}
+    - {fileID: 11400000, guid: 22ca8d148f582f14889976cd12c019bb, type: 2}
+    - {fileID: 11400000, guid: b5589e989512f5d4c83a6429d368b5ac, type: 2}
+    - {fileID: 11400000, guid: 47f2107ef42817249b64868b45e75df5, type: 2}
+    - {fileID: 11400000, guid: 4450c19e96fe5c344baa819fb69d2b93, type: 2}
+    DEFAULT_WALL_TILEBASE: {fileID: 11400000, guid: eb831805b154e12428a5a928d4a93992,
+      type: 2}
+    ALTERNATIVE_WALL_TILEBASE: []
+    LEFT_WALL_TILEBASE: {fileID: 11400000, guid: 21a21a6d19356a74a8cbcd7e8e6a8fb3,
+      type: 2}
+    RIGHT_WALL_TILEBASE: {fileID: 11400000, guid: 5578c20fa3b70f14a831a3f58c396b88,
+      type: 2}
+    LEFT_TOP_CORNER_TILEBASE: {fileID: 11400000, guid: fd1dc9db5d6782d44bc84bcf04cc1f74,
+      type: 2}
+    RIGHT_TOP_CORNER_TILEBASE: {fileID: 11400000, guid: f55cf39a0c1f50a46a4f350bf021a4ed,
+      type: 2}
+    LEFT_BOT_CORNER_TILEBASE: {fileID: 11400000, guid: d096056336990e24fb5ab36329221252,
+      type: 2}
+    RIGHT_BOT_CORNER_TILEBASE: {fileID: 11400000, guid: a037a5ffa08035e46b9038b8b614f9bd,
+      type: 2}
+    TOP_EDGE_TILEBASE: {fileID: 11400000, guid: 5b8c22252c73bc1439162f5009e93e8d,
+      type: 2}
+    BOT_EDGE_TILEBASE: {fileID: 11400000, guid: 5b8c22252c73bc1439162f5009e93e8d,
+      type: 2}
+    LEFT_EDGE_TILEBASE: {fileID: 11400000, guid: dd05c29ac840ae14885583c991690ba8,
+      type: 2}
+    RIGHT_EDGE_TILEBASE: {fileID: 11400000, guid: fa2e6047923c79f4baecc9178e9af7f2,
+      type: 2}
+  GeneratorData: {fileID: 1763139036}
   debugRays: {fileID: 1932482926}
   debugRayMaterial: {fileID: 2100000, guid: b12eb32eda56f0241a633c3c06b9b5ce, type: 2}
+--- !u!114 &1763139038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763139033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02cc9d7db8da8847904420351635298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomOutMin: 5
+  zoomOutMax: 40
+  zoomSpeed: 15
+--- !u!1 &1812232187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812232189}
+  - component: {fileID: 1812232188}
+  m_Layer: 0
+  m_Name: ScreenShotMaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1812232188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812232187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46639e995f5c4b4a809b7050f7b7906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+--- !u!4 &1812232189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812232187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 59.351627, y: -7.67314, z: -568.0409}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1932482925
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,36 +833,40 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 0
     m_Data:
-      e00: 4.6567195e-10
-      e01: 3.3001726e-12
-      e02: -6.995e-42
-      e03: -1.7740874e+10
-      e10: 5.96e-43
+      e00: 2.5244127e-29
+      e01: -0.0020023957
+      e02: 1.6508607e+29
+      e03: -0.000000001537054
+      e10: 7.7e-43
       e11: 4.5904e-41
-      e12: 5.97e-43
-      e13: 5.94e-43
+      e12: 7.71e-43
+      e13: 7.68e-43
       e20: 6e-45
-      e21: 1.0284638e+19
-      e22: 1.0283671e+19
-      e23: 1.0283671e+19
+      e21: -9.587939e+34
+      e22: -9.587067e+34
+      e23: -9.587067e+34
       e30: 0
-      e31: 1.35e-43
-      e32: 1.35e-43
-      e33: 1.35e-43
+      e31: 3.22e-43
+      e32: 3.22e-43
+      e33: 3.22e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: -6.995e-42, g: -6.995e-42, b: -6.995e-42, a: -6.995e-42}
+    m_Data: {r: 1.6508607e+29, g: 1.6508607e+29, b: 1.6508607e+29, a: 1.6508607e+29}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -2, y: 0, z: 0}
-  m_Size: {x: 2, y: 2, z: 1}
+  m_Origin: {x: -2, y: -5, z: 0}
+  m_Size: {x: 11, y: 7, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:

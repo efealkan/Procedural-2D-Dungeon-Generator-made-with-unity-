@@ -39,6 +39,7 @@ public class MST
             }
             else if (corridors[i].distanceBetweenRooms < (chunkSize.x + chunkSize.y)/1.5)
             {
+                //Even if the edge should not be in mst, there is a chance it can still appear in mst.
                 if (Random.Range(0, 10) < 2)
                 {
                     uf.Union(corridors[i].room1.id, corridors[i].room2.id);

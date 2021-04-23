@@ -9,4 +9,6 @@ public class DungeonGeneratorData : MonoBehaviour
     [Min(2)] public int roomDistanceSample;
     [Min(6)] public int averageRoomSize;
     [Range(2, 5)] public int corridorWidth;
+
+    [Range(0, 10)] public int oldnessLevel;
 }

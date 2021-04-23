@@ -7,15 +7,15 @@ using UnityEngine.Tilemaps;
 
 public class DrawComponents : MonoBehaviour
 {
-    public Tilemap Tilemap_Base;
-    public Tilemap Tilemap_Wall;
-    public Tilemap Tilemap_Doorway;
+    [Header("Tilemap")]
+    public Tilemap TILEMAP_BASE;
+    public Tilemap TILEMAP_WALL;
 
-    public TileBase[] Tilebase_Ground;
-    
-    public TileBase tilebase;
-    public TileBase tilebase2;
+    [Header("Tileset")]
+    public TilesetMap TILESET_MAP;
 
+    [Header("Components")]
+    public DungeonGeneratorData GeneratorData;
     public Transform debugRays;
     public Material debugRayMaterial;
 
@@ -29,20 +29,22 @@ public class DrawComponents : MonoBehaviour
     
     public void DrawRoom(Room room)
     {
-        Vector2Int centre = room.centrePos;
         Vector2Int size = room.size;
-
-        int topLeftPosX = centre.x - size.x / 2;
-        int topLeftPosY = centre.y + size.y / 2;
+        Vector2Int topLeftPos = room.GetTopLeftPos();
+        
+        int topLeftPosX = topLeftPos.x;
+        int topLeftPosY = topLeftPos.y;
 
         for (int x = 0; x < size.x; x++)
         {
             for (int y = 0; y < size.y; y++)
             {
                 Vector3Int pos = new Vector3Int(topLeftPosX + x, topLeftPosY - y, 0);
-                Tilemap_Base.SetTile(pos, tilebase);
+                TILEMAP_BASE.SetTile(pos, Find_Tilebase_Ground());
             }
         }
+
+        DrawWallsOfRooms(room);
     }
 
     public void DrawCorridor(Corridor corridor)
@@ -55,15 +57,15 @@ public class DrawComponents : MonoBehaviour
                 for (int i = 0; i <= distance; i++)
                 {
                     Vector2Int pos = new Vector2Int(entry.Key[0].x + i, entry.Key[0].y);
-                    Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(pos), tilebase2);
+                    TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(pos), Find_Tilebase_Ground());
 
                     for (int j = 1; j <= corridor.corridorWidth/2; j++)
                     {
                         Vector2Int posUp = new Vector2Int(entry.Key[0].x + i, entry.Key[0].y + j);
                         Vector2Int posDown = new Vector2Int(entry.Key[0].x + i, entry.Key[0].y - j);
                         
-                        Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(posUp), tilebase2);
-                        Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(posDown), tilebase2);
+                        TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posUp), Find_Tilebase_Ground());
+                        TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posDown), Find_Tilebase_Ground());
                     }
                 }
             }
@@ -73,18 +75,100 @@ public class DrawComponents : MonoBehaviour
                 for (int i = 0; i <= distance; i++)
                 {
                     Vector2Int pos = new Vector2Int(entry.Key[0].x, entry.Key[0].y + i);
-                    Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(pos), tilebase2);
+                    TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(pos), Find_Tilebase_Ground());
                     
                     for (int j = 1; j <= corridor.corridorWidth/2; j++)
                     {
                         Vector2Int posRight = new Vector2Int(entry.Key[0].x + j, entry.Key[0].y + i);
                         Vector2Int posLeft = new Vector2Int(entry.Key[0].x - j, entry.Key[0].y + i);
                         
-                        Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(posRight), tilebase2);
-                        Tilemap_Base.SetTile(Utils.Vector2IntToVector3Int(posLeft), tilebase2);
+                        TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posRight), Find_Tilebase_Ground());
+                        TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posLeft), Find_Tilebase_Ground());
                     }
                 }
             }
+        }
+    }
+
+    private void DrawWallsOfRooms(Room room)
+    {
+        Vector2Int topLeftPos = room.GetTopLeftPos();
+        Vector2Int topRightPos = room.GetTopRightPos();
+        Vector2Int botLeftPos = room.GetBotLeftPos();
+        Vector2Int botRightPos = room.GetBotRightPos();
+        
+        //Top Walls
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topLeftPos, 0, 1)), 
+            TILESET_MAP.LEFT_WALL_TILEBASE);
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topRightPos, 0, 1)),
+            TILESET_MAP.RIGHT_WALL_TILEBASE);
+        
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topLeftPos, 0, 2)), 
+            TILESET_MAP.LEFT_TOP_CORNER_TILEBASE);
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topRightPos, 0, 2)),
+            TILESET_MAP.RIGHT_TOP_CORNER_TILEBASE);
+
+        for (int i = 1; i < topRightPos.x - topLeftPos.x; i++)
+        {
+            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topLeftPos, i, 1)), 
+                TILESET_MAP.DEFAULT_WALL_TILEBASE);
+            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(topLeftPos, i, 2)), 
+                TILESET_MAP.TOP_EDGE_TILEBASE);
+        }
+        
+        //Bottom Walls
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(botLeftPos), 
+            TILESET_MAP.LEFT_BOT_CORNER_TILEBASE);
+        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(botRightPos),
+            TILESET_MAP.RIGHT_BOT_CORNER_TILEBASE);
+        
+        for (int i = 1; i < botRightPos.x - botLeftPos.x; i++)
+        {
+            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(botLeftPos, i, 0)), 
+                TILESET_MAP.BOT_EDGE_TILEBASE);
+        }
+        
+        //Left Walls
+        for (int i = 1; i <= topLeftPos.y - botLeftPos.y; i++)
+        {
+            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(botLeftPos, 0, i)), 
+                TILESET_MAP.LEFT_EDGE_TILEBASE);
+        }
+        
+        //Right Walls
+        for (int i = 1; i <= topRightPos.y - botRightPos.y; i++)
+        {
+            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(botRightPos, 0, i)), 
+                TILESET_MAP.RIGHT_EDGE_TILEBASE);
+        }
+        
+        //Remove walls from door location
+        if (room.isDoorHorizontal)
+        {
+            int length = room.doorLength / 2;
+
+            if (room.doorCentrePos.y > room.centrePos.y)
+            {
+                for (int i = 0; i <= length; i++)
+                {
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,1)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,1)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,2)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,2)), null);
+                }   
+            }
+            else
+            {
+                for (int i = 0; i <= length; i++)
+                {
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,0)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,0)), null);
+                }   
+            }
+        }
+        else
+        {
+            
         }
     }
     
@@ -153,5 +237,12 @@ public class DrawComponents : MonoBehaviour
         lr.sortingOrder = 100;
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
+    }
+    
+    private TileBase Find_Tilebase_Ground()
+    {
+        if (Utils.RandomInt(0, 10) < GeneratorData.oldnessLevel && TILESET_MAP.ALTERNATIVE_GROUND_TILEBASE.Length > 0)
+            return TILESET_MAP.ALTERNATIVE_GROUND_TILEBASE[Utils.RandomInt(0, TILESET_MAP.ALTERNATIVE_GROUND_TILEBASE.Length)];
+        return TILESET_MAP.DEFAULT_GROUND_TILEBASE;
     }
 }

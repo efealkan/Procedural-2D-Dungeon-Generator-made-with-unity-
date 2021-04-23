@@ -43,6 +43,9 @@ public class Corridor
 
             int leftDoorX = leftRoom.centrePos.x + Mathf.CeilToInt((float)leftRoom.size.x / 2);
             int rightDoorX = rightRoom.centrePos.x - Mathf.CeilToInt((float)rightRoom.size.x / 2);
+            
+            leftRoom.SetDoor(new Vector2Int(leftDoorX-1, leftRoom.centrePos.y), corridorWidth, false);
+            rightRoom.SetDoor(new Vector2Int(rightDoorX+1, rightRoom.centrePos.y), corridorWidth, false);
 
             int middleX = leftDoorX + (rightDoorX - leftDoorX) / 2;
 
@@ -78,7 +81,10 @@ public class Corridor
             
             int bottomDoorY = bottomRoom.centrePos.y + Mathf.CeilToInt((float)bottomRoom.size.y / 2);
             int upDoorY = upRoom.centrePos.y - Mathf.CeilToInt((float)upRoom.size.y / 2);
-
+            
+            bottomRoom.SetDoor(new Vector2Int(bottomRoom.centrePos.x, bottomDoorY-1), corridorWidth, true);
+            upRoom.SetDoor(new Vector2Int(upRoom.centrePos.x, upDoorY+1), corridorWidth, true);
+            
             int middleY = bottomDoorY + (upDoorY - bottomDoorY) / 2;
             
             List<Vector2Int> bottomMap = new List<Vector2Int>() 
