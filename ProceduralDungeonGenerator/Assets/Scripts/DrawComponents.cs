@@ -64,8 +64,16 @@ public class DrawComponents : MonoBehaviour
                         Vector2Int posUp = new Vector2Int(entry.Key[0].x + i, entry.Key[0].y + j);
                         Vector2Int posDown = new Vector2Int(entry.Key[0].x + i, entry.Key[0].y - j);
                         
+                        //Draw Ground
                         TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posUp), Find_Tilebase_Ground());
                         TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(posDown), Find_Tilebase_Ground());
+                        
+                        //Draw Walls
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(posUp, 0, 1)),
+                            TILESET_MAP.DEFAULT_WALL_TILEBASE);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(posUp, 0, 2)),
+                            TILESET_MAP.TOP_EDGE_TILEBASE);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(posDown), TILESET_MAP.BOT_EDGE_TILEBASE);
                     }
                 }
             }
@@ -142,36 +150,44 @@ public class DrawComponents : MonoBehaviour
                 TILESET_MAP.RIGHT_EDGE_TILEBASE);
         }
         
+        
         //Remove walls from door location
-        if (room.isDoorHorizontal)
+        foreach (var door in room.doors)
         {
-            int length = room.doorLength / 2;
+            int length = door.length / 2;
 
-            if (room.doorCentrePos.y > room.centrePos.y)
+            if (door.isHorizontal)
+            {
+                if (door.centrePos.y > room.centrePos.y)  //Door at top
+                {
+                    for (int i = 0; i <= length; i++)
+                    {
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, i,1)), null);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -i,1)), null);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, i,2)), null);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -i,2)), null);
+                    }   
+                }
+                else //Door at bottom
+                {
+                    for (int i = 0; i <= length; i++)
+                    {
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, i,0)), null);
+                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -i,0)), null);
+                    }   
+                }
+            }
+            else //Door at either left or right
             {
                 for (int i = 0; i <= length; i++)
                 {
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,1)), null);
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,1)), null);
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,2)), null);
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,2)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,i)), null);
+                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,-i)), null);
                 }   
             }
-            else
-            {
-                for (int i = 0; i <= length; i++)
-                {
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, i,0)), null);
-                    TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(room.doorCentrePos, -i,0)), null);
-                }   
-            }
-        }
-        else
-        {
-            
         }
     }
-    
+
     public void SetupCorridorRays(List<Corridor> corridors)
     {
         this.corridors = corridors;

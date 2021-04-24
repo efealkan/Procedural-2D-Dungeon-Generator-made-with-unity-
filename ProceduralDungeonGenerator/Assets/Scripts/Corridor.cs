@@ -21,8 +21,6 @@ public class Corridor
         this.distanceBetweenRooms = distanceBetweenRooms;
         
         corridorVertexMap = new Dictionary<List<Vector2Int>, DirectionOfTheCorridor>();
-        
-        CreateActualCorridor();
     }
 
     public void CreateActualCorridor()
@@ -84,7 +82,7 @@ public class Corridor
             
             bottomRoom.SetDoor(new Vector2Int(bottomRoom.centrePos.x, bottomDoorY-1), corridorWidth, true);
             upRoom.SetDoor(new Vector2Int(upRoom.centrePos.x, upDoorY+1), corridorWidth, true);
-            
+
             int middleY = bottomDoorY + (upDoorY - bottomDoorY) / 2;
             
             List<Vector2Int> bottomMap = new List<Vector2Int>() 

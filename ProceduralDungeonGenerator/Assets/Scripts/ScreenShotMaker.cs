@@ -18,7 +18,7 @@ public class ScreenShotMaker : MonoBehaviour
  
     void Start()
     {
-        Debug.Log("Initializing camera and stuff...");
+        // Debug.Log("Initializing camera and stuff...");
      
         gameObject.AddComponent(typeof(Camera));
  
@@ -38,8 +38,8 @@ public class ScreenShotMaker : MonoBehaviour
  
         bounds = new Vector4();
  
-        Debug.Log("Initialized successfully!");
-        Debug.Log("Computing level boundaries...");
+        // Debug.Log("Initialized successfully!");
+        // Debug.Log("Computing level boundaries...");
  
         if (target != null)
         {
@@ -97,8 +97,8 @@ public class ScreenShotMaker : MonoBehaviour
             }
         }
      
-        Debug.Log("Boundaries computed successfuly! The computed boundaries are " + bounds);
-        Debug.Log("Computing target image resolution and final setup...");
+        // Debug.Log("Boundaries computed successfuly! The computed boundaries are " + bounds);
+        // Debug.Log("Computing target image resolution and final setup...");
  
         int xRes = Mathf.RoundToInt(resolution * ((bounds.x - bounds.w) / (renderCamera.aspect * renderCamera.orthographicSize * 2 * renderCamera.aspect)));
         int yRes = Mathf.RoundToInt(resolution * ((bounds.z - bounds.y) / (renderCamera.aspect * renderCamera.orthographicSize * 2 / renderCamera.aspect)));
@@ -106,7 +106,7 @@ public class ScreenShotMaker : MonoBehaviour
         Texture2D virtualPhoto = new Texture2D(xRes, yRes, TextureFormat.RGB24, false);
         RenderTexture.active = renderTexture;
  
-        Debug.Log("Success! Everything seems ready to render!");
+        // Debug.Log("Success! Everything seems ready to render!");
  
         for (float i = bounds.w, xPos = 0; i < bounds.x; i += renderCamera.aspect * renderCamera.orthographicSize * 2, xPos++)
         {
@@ -118,7 +118,7 @@ public class ScreenShotMaker : MonoBehaviour
  
                 virtualPhoto.ReadPixels(new Rect(0, 0, resolution, resolution), (int)xPos * resolution, (int)yPos * resolution);
  
-                Debug.Log("Rendered and copied chunk " + (xPos + 1) + ":" + (yPos + 1));
+                // Debug.Log("Rendered and copied chunk " + (xPos + 1) + ":" + (yPos + 1));
             }
         }
  

@@ -8,9 +8,7 @@ public class Room
     public Vector2Int centrePos;
     public Vector2Int size;
     
-    public Vector2Int doorCentrePos;
-    public int doorLength;
-    public bool isDoorHorizontal;
+    public List<Door> doors = new List<Door>();
 
     public Room(int id, Vector2Int centrePos, Vector2Int size)
     {
@@ -21,9 +19,8 @@ public class Room
 
     public void SetDoor(Vector2Int doorCentrePos, int doorLength, bool isDoorHorizontal)
     {
-        this.doorCentrePos = doorCentrePos;
-        this.doorLength = doorLength;
-        this.isDoorHorizontal = isDoorHorizontal;
+        Door door = new Door(doorCentrePos, doorLength, isDoorHorizontal);
+        doors.Add(door);
     }
 
     public Vector2Int GetTopLeftPos() => new Vector2Int(centrePos.x - size.x / 2, centrePos.y + size.y / 2);

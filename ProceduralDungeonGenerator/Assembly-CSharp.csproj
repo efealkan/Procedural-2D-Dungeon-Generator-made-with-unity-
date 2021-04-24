@@ -53,17 +53,18 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\DrawComponents.cs" />
+     <Compile Include="Assets\Scripts\TilesetMap.cs" />
      <Compile Include="Assets\Scripts\Utils.cs" />
      <Compile Include="Assets\Scripts\MST.cs" />
      <Compile Include="Assets\Scripts\Basemap.cs" />
      <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
      <Compile Include="Assets\Scripts\ScreenShotMaker.cs" />
      <Compile Include="Assets\Scripts\CamController.cs" />
+     <Compile Include="Assets\Scripts\Door.cs" />
      <Compile Include="Assets\Scripts\Chunk.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\Corridor.cs" />
      <Compile Include="Assets\Scripts\DungeonGeneratorData.cs" />
-     <Compile Include="Assets\Scripts\TilesetMap.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

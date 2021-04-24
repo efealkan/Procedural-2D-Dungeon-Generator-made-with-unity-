@@ -134,6 +134,7 @@ public class DungeonGenerator : MonoBehaviour
         foreach (var corridor in corridors)
         {
             corridor.SetCorridorWidth(GeneratorData.corridorWidth);
+            corridor.CreateActualCorridor();
         }
     }
 
