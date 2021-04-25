@@ -15,6 +15,8 @@ public class DungeonGenerator : MonoBehaviour
     private List<Room> rooms = new List<Room>();
     private List<Corridor> corridors = new List<Corridor>();
     
+    private HashSet<Vector2Int> corridorPos = new HashSet<Vector2Int>();
+    
     private Vector2Int roomSizeRange;
     private int numberOfRooms;
 
@@ -135,6 +137,11 @@ public class DungeonGenerator : MonoBehaviour
         {
             corridor.SetCorridorWidth(GeneratorData.corridorWidth);
             corridor.CreateActualCorridor();
+            
+            foreach (var pos in corridor.corridorTiles)
+            {
+                corridorPos.Add(pos);
+            }
         }
     }
 
@@ -145,9 +152,6 @@ public class DungeonGenerator : MonoBehaviour
             DrawHandler.DrawRoom(room);
         }
 
-        foreach (var corridor in corridors)
-        {
-            DrawHandler.DrawCorridor(corridor);
-        }
+        DrawHandler.DrawCorridors(corridorPos, corridors);
     }
 }

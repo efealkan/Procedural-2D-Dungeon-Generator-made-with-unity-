@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc0367a6f37f714a8161dd2ba8ec4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoomsRange: {x: 6, y: 20}
+  numberOfRoomsRange: {x: 5, y: 15}
   roomDistanceSample: 5
   averageRoomSize: 10
   corridorWidth: 3
