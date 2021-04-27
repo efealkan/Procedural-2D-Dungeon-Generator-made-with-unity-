@@ -20,19 +20,14 @@ public class Corridor
     public Vector2Int midBotLeft;
     public Vector2Int midTopRight;
     public Vector2Int midBot;
-
-    public Dictionary<List<Vector2Int>, DirectionOfTheCorridor> corridorVertexMap; 
-
+    
     public HashSet<Vector2Int> corridorTiles = new HashSet<Vector2Int>();
-    
-    
+
     public Corridor(Room room1, Room room2, int distanceBetweenRooms)
     {
         this.room1 = room1;
         this.room2 = room2;
         this.distanceBetweenRooms = distanceBetweenRooms;
-        
-        corridorVertexMap = new Dictionary<List<Vector2Int>, DirectionOfTheCorridor>();
     }
 
     public void CreateActualCorridor()
@@ -81,10 +76,6 @@ public class Corridor
                 middleMap = new List<Vector2Int>() 
                     {new Vector2Int(middleX, rightRoom.centrePos.y), new Vector2Int(middleX, leftRoom.centrePos.y)};
             }
-            
-            corridorVertexMap.Add(leftMap, DirectionOfTheCorridor.horizontal);
-            corridorVertexMap.Add(rightMap, DirectionOfTheCorridor.horizontal);
-            corridorVertexMap.Add(middleMap, DirectionOfTheCorridor.vertical);
 
             FillCorridorTilesSet(leftMap, DirectionOfTheCorridor.horizontal);
             FillCorridorTilesSet(rightMap, DirectionOfTheCorridor.horizontal);
@@ -123,11 +114,7 @@ public class Corridor
                 middleMap = new List<Vector2Int>() 
                     {new Vector2Int(upRoom.centrePos.x, middleY), new Vector2Int(bottomRoom.centrePos.x, middleY)};
             }
-            
-            corridorVertexMap.Add(bottomMap, DirectionOfTheCorridor.vertical);
-            corridorVertexMap.Add(upMap, DirectionOfTheCorridor.vertical);
-            corridorVertexMap.Add(middleMap, DirectionOfTheCorridor.horizontal);
-            
+
             FillCorridorTilesSet(bottomMap, DirectionOfTheCorridor.vertical);
             FillCorridorTilesSet(upMap, DirectionOfTheCorridor.vertical);
             FillCorridorTilesSet(middleMap, DirectionOfTheCorridor.horizontal);

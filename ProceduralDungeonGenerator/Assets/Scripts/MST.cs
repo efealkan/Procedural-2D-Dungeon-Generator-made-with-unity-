@@ -8,6 +8,9 @@ public class MST
 {
     private static List<Corridor> corridors = new List<Corridor>();
 
+    /// <summary>
+    /// Create corridor between every room pair (These are not the final corridors, mst will eliminate most of them)!
+    /// </summary>
     public static List<Corridor> CreateCorridors(List<Room> rooms, Vector2Int chunkSize)
     {
         for (int i = 0; i < rooms.Count; i++)
@@ -24,6 +27,9 @@ public class MST
         return ApplyMST(rooms.Count, chunkSize);
     }
 
+    /// <summary>
+    /// Finds the minimum spanning tree of corridors to make sure all rooms are connected!
+    /// </summary>
     private static List<Corridor> ApplyMST(int n, Vector2Int chunkSize)
     {
         UnionFind uf = new UnionFind(n);
@@ -39,7 +45,8 @@ public class MST
             }
             else if (corridors[i].distanceBetweenRooms < (chunkSize.x + chunkSize.y)/1.5)
             {
-                //Even if the edge should not be in mst, there is a chance it can still appear in mst.
+                //Even if the edge should not be in mst, there is a small chance it
+                //can still appear in mst (To create some cycles to make the dungeon more interesting).
                 if (Random.Range(0, 10) < 2)
                 {
                     uf.Union(corridors[i].room1.id, corridors[i].room2.id);
@@ -51,6 +58,9 @@ public class MST
         return corridorsInMst;
     }
 
+    /// <summary>
+    /// Calculates Euclidean distance between two rooms.
+    /// </summary>
     private static int CalculateDistance(Room r1, Room r2)
     {
         int x = (int) Math.Pow(r1.centrePos.x - r2.centrePos.x, 2);
@@ -59,6 +69,9 @@ public class MST
     }
 }
 
+/// <summary>
+/// Data structure used to efficiently decide whether a corridor is in mst or not.
+/// </summary>
 public class UnionFind
 {
     public int[] rank;

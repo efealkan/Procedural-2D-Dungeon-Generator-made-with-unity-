@@ -11,22 +11,31 @@ public class DungeonGenerator : MonoBehaviour
     private DrawComponents DrawHandler;
 
     private Basemap basemap;
+    
     private List<Chunk> chunks = new List<Chunk>();
     private List<Room> rooms = new List<Room>();
     private List<Corridor> corridors = new List<Corridor>();
     
-    private HashSet<Vector2Int> corridorPos = new HashSet<Vector2Int>();
+    private HashSet<Vector2Int> groundTilePositions = new HashSet<Vector2Int>();
     
     private Vector2Int roomSizeRange;
+    
     private int numberOfRooms;
 
     private void Awake()
     {
         GeneratorData = GetComponent<DungeonGeneratorData>();
         DrawHandler = GetComponent<DrawComponents>();
-        numberOfRooms = Utils.RandomInt(GeneratorData.numberOfRoomsRange.x, GeneratorData.numberOfRoomsRange.y);
-        roomSizeRange = new Vector2Int(GeneratorData.averageRoomSize - 2, GeneratorData.averageRoomSize + 5);
 
+        if (GeneratorData.numberOfRoomsMin > GeneratorData.numberOfRoomsMax)
+        {
+            Debug.LogError("Number Rooms Min IS BIGGER than Number Room MAX: ERROR!");
+            return;
+        }
+        numberOfRooms = Utils.RandomInt(GeneratorData.numberOfRoomsMin, GeneratorData.numberOfRoomsMax);
+        
+        roomSizeRange = new Vector2Int(GeneratorData.averageRoomSize - 2, GeneratorData.averageRoomSize + 5);
+        
         GenerateBasemap();
         GenerateChunks();
         GenerateRooms();
@@ -125,6 +134,12 @@ public class DungeonGenerator : MonoBehaviour
             Room room = new Room(i, new Vector2Int(centreX, centreY), new Vector2Int(roomSizeX, roomSizeY));
             rooms.Add(room);
             chunk.SetRoom(room);
+            
+            //Collect all ground tiles here!
+            foreach (var pos in room.roomTiles)
+            {
+                groundTilePositions.Add(pos);
+            }
         }
     }
 
@@ -138,20 +153,16 @@ public class DungeonGenerator : MonoBehaviour
             corridor.SetCorridorWidth(GeneratorData.corridorWidth);
             corridor.CreateActualCorridor();
             
+            //Collect all ground tiles here!
             foreach (var pos in corridor.corridorTiles)
             {
-                corridorPos.Add(pos);
+                groundTilePositions.Add(pos);
             }
         }
     }
 
     private void DrawCall()
     {
-        foreach (var room in rooms)
-        {
-            DrawHandler.DrawRoom(room);
-        }
-
-        DrawHandler.DrawCorridors(corridorPos, corridors);
+        DrawHandler.Draw(groundTilePositions, rooms);
     }
 }

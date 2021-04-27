@@ -595,7 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc0367a6f37f714a8161dd2ba8ec4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoomsRange: {x: 5, y: 15}
+  numberOfRoomsMin: 5
+  numberOfRoomsMax: 10
   roomDistanceSample: 5
   averageRoomSize: 10
   corridorWidth: 3
@@ -615,39 +616,130 @@ MonoBehaviour:
   TILEMAP_BASE: {fileID: 83221138}
   TILEMAP_WALL: {fileID: 2024260212}
   TILESET_MAP:
-    DEFAULT_GROUND_TILEBASE: {fileID: 11400000, guid: c0cb4d7cc49f1f346ad6d0b8860dd43b,
+    DEFAULT_GROUND_TILEBASE: {fileID: 11400000, guid: 2ecd886e4f2f00d4f94fcb7e5ccbefa8,
       type: 2}
-    ALTERNATIVE_GROUND_TILEBASE:
-    - {fileID: 11400000, guid: c824464139a112d4a8dcac56b2b53ee0, type: 2}
-    - {fileID: 11400000, guid: 92dc749e3f2fa344f9aac5d1f8b9eed5, type: 2}
-    - {fileID: 11400000, guid: ec9089f56db9ee84ba8c9460cdb27b94, type: 2}
-    - {fileID: 11400000, guid: 22ca8d148f582f14889976cd12c019bb, type: 2}
-    - {fileID: 11400000, guid: b5589e989512f5d4c83a6429d368b5ac, type: 2}
-    - {fileID: 11400000, guid: 47f2107ef42817249b64868b45e75df5, type: 2}
-    - {fileID: 11400000, guid: 4450c19e96fe5c344baa819fb69d2b93, type: 2}
-    DEFAULT_WALL_TILEBASE: {fileID: 11400000, guid: eb831805b154e12428a5a928d4a93992,
-      type: 2}
-    ALTERNATIVE_WALL_TILEBASE: []
-    LEFT_WALL_TILEBASE: {fileID: 11400000, guid: 21a21a6d19356a74a8cbcd7e8e6a8fb3,
-      type: 2}
-    RIGHT_WALL_TILEBASE: {fileID: 11400000, guid: 5578c20fa3b70f14a831a3f58c396b88,
-      type: 2}
-    LEFT_TOP_CORNER_TILEBASE: {fileID: 11400000, guid: fd1dc9db5d6782d44bc84bcf04cc1f74,
-      type: 2}
-    RIGHT_TOP_CORNER_TILEBASE: {fileID: 11400000, guid: f55cf39a0c1f50a46a4f350bf021a4ed,
-      type: 2}
-    LEFT_BOT_CORNER_TILEBASE: {fileID: 11400000, guid: d096056336990e24fb5ab36329221252,
-      type: 2}
-    RIGHT_BOT_CORNER_TILEBASE: {fileID: 11400000, guid: a037a5ffa08035e46b9038b8b614f9bd,
-      type: 2}
-    TOP_EDGE_TILEBASE: {fileID: 11400000, guid: 5b8c22252c73bc1439162f5009e93e8d,
-      type: 2}
-    BOT_EDGE_TILEBASE: {fileID: 11400000, guid: 5b8c22252c73bc1439162f5009e93e8d,
-      type: 2}
-    LEFT_EDGE_TILEBASE: {fileID: 11400000, guid: dd05c29ac840ae14885583c991690ba8,
-      type: 2}
-    RIGHT_EDGE_TILEBASE: {fileID: 11400000, guid: fa2e6047923c79f4baecc9178e9af7f2,
-      type: 2}
+    ALTERNATIVE_GROUND_TILEBASE: []
+    WALL_TILES:
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 
+    - hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 
+    - hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 21b36f40eb61d3f47b3a9c6863333d81, type: 2}
+      code: 
+    - hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 9fabadc5f9f67d143b1c7d2d506221b5, type: 2}
+      code: 
+    - hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 79946d3ea38842b48ac9b5cf84e6a488, type: 2}
+      code: 
+    - hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 5f5af840e97d6c647854054d1c1d1006, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 
+    - hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 
   GeneratorData: {fileID: 1763139036}
   debugRays: {fileID: 1932482926}
   debugRayMaterial: {fileID: 2100000, guid: b12eb32eda56f0241a633c3c06b9b5ce, type: 2}
