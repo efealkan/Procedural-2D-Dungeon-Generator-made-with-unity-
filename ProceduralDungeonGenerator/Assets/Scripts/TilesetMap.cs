@@ -11,18 +11,24 @@ public class TilesetMap
     public TileBase DEFAULT_GROUND_TILEBASE;
     public TileBase[] ALTERNATIVE_GROUND_TILEBASE;
 
-    public TileBase DEFAULT_WALL_TILEBASE;
-    public TileBase[] ALTERNATIVE_WALL_TILEBASE;
-    public TileBase LEFT_WALL_TILEBASE;
-    public TileBase RIGHT_WALL_TILEBASE;
-    
-    public TileBase LEFT_TOP_CORNER_TILEBASE;
-    public TileBase RIGHT_TOP_CORNER_TILEBASE;
-    public TileBase LEFT_BOT_CORNER_TILEBASE;
-    public TileBase RIGHT_BOT_CORNER_TILEBASE;
+    public WallTile[] WALL_TILES;
+}
 
-    public TileBase TOP_EDGE_TILEBASE;
-    public TileBase BOT_EDGE_TILEBASE;
-    public TileBase LEFT_EDGE_TILEBASE;
-    public TileBase RIGHT_EDGE_TILEBASE;
+[Serializable]
+public class WallTile
+{
+    public string name;
+
+    public bool hasTileUp;
+    public bool hasTileDown;
+    public bool hasTileLeft;
+    public bool hasTileRight;
+    public bool hasTileUpLeft;
+    public bool hasTileUpRight;
+    public bool hasTileDownLeft;
+    public bool hasTileDownRight;
+
+    public TileBase tileBase;
+
+    [HideInInspector] public string code;
 }
