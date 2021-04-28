@@ -1,0 +1,5 @@
+mergeInto(LibraryManager.library, {
+	CreateImage: function (bytes) {
+		window.alert("hi");
+	},
+});

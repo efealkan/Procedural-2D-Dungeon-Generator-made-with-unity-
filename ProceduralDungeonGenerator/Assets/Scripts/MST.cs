@@ -8,6 +8,11 @@ public class MST
 {
     private static List<Corridor> corridors = new List<Corridor>();
 
+    public static void Clear()
+    {
+        corridors = new List<Corridor>();
+    }
+
     /// <summary>
     /// Create corridor between every room pair (These are not the final corridors, mst will eliminate most of them)!
     /// </summary>

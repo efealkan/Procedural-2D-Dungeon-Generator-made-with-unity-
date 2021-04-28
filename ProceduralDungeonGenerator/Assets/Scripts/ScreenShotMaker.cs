@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class ScreenShotMaker : MonoBehaviour
 {
+    [HideInInspector] public static ScreenShotMaker instance;
+    
     public GameObject target;
  
     private RenderTexture renderTexture;
@@ -15,11 +18,15 @@ public class ScreenShotMaker : MonoBehaviour
  
     private int resolution = 160;
     private float cameraDistance = -2.0f;
- 
-    void Start()
+
+    private void Awake()
     {
-        // Debug.Log("Initializing camera and stuff...");
-     
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(this);
+    }
+
+    public void SaveScene()
+    {
         gameObject.AddComponent(typeof(Camera));
  
         renderCamera = GetComponent<Camera>();
@@ -128,7 +135,6 @@ public class ScreenShotMaker : MonoBehaviour
         renderCamera.targetTexture = null;
      
         byte[] bytes = virtualPhoto.EncodeToPNG();
- 
         
         string file_path = Application.persistentDataPath + "/" + "myDungeon.png";
         Debug.Log(file_path);
