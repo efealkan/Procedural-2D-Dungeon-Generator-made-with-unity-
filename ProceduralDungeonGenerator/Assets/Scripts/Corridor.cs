@@ -63,7 +63,7 @@ public class Corridor
             botRight = new Vector2Int(rightDoorX, rightRoom.centrePos.y - corridorWidth/2);
 
             List<Vector2Int> leftMap = new List<Vector2Int>() 
-                {new Vector2Int(leftDoorX, leftRoom.centrePos.y), new Vector2Int(middleX, leftRoom.centrePos.y)};
+                {new Vector2Int(leftDoorX, leftRoom.centrePos.y), new Vector2Int(middleX+1, leftRoom.centrePos.y)};
             
             List<Vector2Int> rightMap = new List<Vector2Int>() 
                 {new Vector2Int(middleX, rightRoom.centrePos.y), new Vector2Int(rightDoorX, rightRoom.centrePos.y)};
@@ -101,10 +101,10 @@ public class Corridor
             int middleY = bottomDoorY + (upDoorY - bottomDoorY) / 2;
             
             List<Vector2Int> bottomMap = new List<Vector2Int>() 
-                {new Vector2Int(bottomRoom.centrePos.x, bottomDoorY), new Vector2Int(bottomRoom.centrePos.x, middleY)};
+                {new Vector2Int(bottomRoom.centrePos.x, bottomDoorY), new Vector2Int(bottomRoom.centrePos.x, middleY+1)};
             
             List<Vector2Int> upMap = new List<Vector2Int>() 
-                {new Vector2Int(upRoom.centrePos.x, middleY), new Vector2Int(upRoom.centrePos.x, upDoorY)};
+                {new Vector2Int(upRoom.centrePos.x, middleY-1), new Vector2Int(upRoom.centrePos.x, upDoorY)};
             
             List<Vector2Int> middleMap = new List<Vector2Int>() 
                 {new Vector2Int(bottomRoom.centrePos.x, middleY), new Vector2Int(upRoom.centrePos.x, middleY)};
@@ -131,11 +131,26 @@ public class Corridor
             {
                 corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y));
 
-                for (int j = 1; j <= corridorWidth/2; j++)
+                if (corridorWidth % 2 != 0)
                 {
-                    corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y + j));
-                    corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y - j));
+                    for (int j = 1; j <= corridorWidth/2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y + j));
+                        corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y - j));
+                    }   
                 }
+                else
+                {
+                    for (int j = 0; j <= corridorWidth/2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y + j));
+                    }   
+                    for (int j = 1; j < corridorWidth/2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x + i, map[0].y - j));
+                    }   
+                }
+
             }
         }
         else
@@ -144,10 +159,24 @@ public class Corridor
             {
                 corridorTiles.Add(new Vector2Int(map[0].x, map[0].y + i));
 
-                for (int j = 1; j <= corridorWidth/2; j++)
+                if (corridorWidth % 2 != 0)
                 {
-                    corridorTiles.Add(new Vector2Int(map[0].x + j, map[0].y + i));
-                    corridorTiles.Add(new Vector2Int(map[0].x - j, map[0].y + i));
+                    for (int j = 1; j <= corridorWidth / 2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x + j, map[0].y + i));
+                        corridorTiles.Add(new Vector2Int(map[0].x - j, map[0].y + i));
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j <= corridorWidth / 2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x + j, map[0].y + i));
+                    }
+                    for (int j = 1; j < corridorWidth / 2; j++)
+                    {
+                        corridorTiles.Add(new Vector2Int(map[0].x - j, map[0].y + i));
+                    }
                 }
             }
         }

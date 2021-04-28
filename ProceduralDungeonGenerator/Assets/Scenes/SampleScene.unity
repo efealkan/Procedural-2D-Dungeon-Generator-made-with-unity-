@@ -595,12 +595,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc0367a6f37f714a8161dd2ba8ec4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRoomsMin: 5
-  numberOfRoomsMax: 10
+  numberOfRoomsMin: 10
+  numberOfRoomsMax: 20
   roomDistanceSample: 5
   averageRoomSize: 10
   corridorWidth: 3
-  oldnessLevel: 1
+  oldnessLevel: 3
 --- !u!114 &1763139037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,9 +618,15 @@ MonoBehaviour:
   TILESET_MAP:
     DEFAULT_GROUND_TILEBASE: {fileID: 11400000, guid: 2ecd886e4f2f00d4f94fcb7e5ccbefa8,
       type: 2}
-    ALTERNATIVE_GROUND_TILEBASE: []
+    ALTERNATIVE_GROUND_TILEBASE:
+    - {fileID: 11400000, guid: e5399bf43a780894e98df90cfbbb9158, type: 2}
+    - {fileID: 11400000, guid: 307a28a068bf4484aa1c9460c294fb83, type: 2}
+    - {fileID: 11400000, guid: 3b546fde46b293044b08cdfb55eeefa5, type: 2}
+    - {fileID: 11400000, guid: 40034715564e9ab4aa320efdb3236b8c, type: 2}
+    - {fileID: 11400000, guid: ce2b72daae8749148b8b1cf7806fcad4, type: 2}
     WALL_TILES:
-    - hasTileUp: 0
+    - name: 
+      hasTileUp: 0
       hasTileDown: 1
       hasTileLeft: 1
       hasTileRight: 1
@@ -629,8 +635,31 @@ MonoBehaviour:
       hasTileDownLeft: 1
       hasTileDownRight: 1
       tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
-      code: 
-    - hasTileUp: 1
+      code: 01110011
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 01111011
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 01110111
+    - name: 
+      hasTileUp: 1
       hasTileDown: 0
       hasTileLeft: 1
       hasTileRight: 1
@@ -639,8 +668,53 @@ MonoBehaviour:
       hasTileDownLeft: 0
       hasTileDownRight: 0
       tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
-      code: 
-    - hasTileUp: 0
+      code: 10111100
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 10111110
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 10111101
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 11110111
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1b1798a97f3c8cc48a215d1e952278df, type: 2}
+      code: 11110111
+    - name: 
+      hasTileUp: 0
       hasTileDown: 1
       hasTileLeft: 0
       hasTileRight: 1
@@ -649,8 +723,42 @@ MonoBehaviour:
       hasTileDownLeft: 0
       hasTileDownRight: 1
       tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
-      code: 
-    - hasTileUp: 0
+      code: 01010001
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 01010111
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 01010011
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
+      code: 01010101
+    - name: 
+      hasTileUp: 0
       hasTileDown: 1
       hasTileLeft: 1
       hasTileRight: 0
@@ -659,18 +767,31 @@ MonoBehaviour:
       hasTileDownLeft: 1
       hasTileDownRight: 0
       tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
-      code: 
-    - hasTileUp: 1
+      code: 01100010
+    - name: 
+      hasTileUp: 0
       hasTileDown: 1
-      hasTileLeft: 0
-      hasTileRight: 1
-      hasTileUpLeft: 0
-      hasTileUpRight: 1
-      hasTileDownLeft: 0
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
       hasTileDownRight: 1
-      tileBase: {fileID: 11400000, guid: 21b36f40eb61d3f47b3a9c6863333d81, type: 2}
-      code: 
-    - hasTileUp: 1
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 01101011
+    - name: 
+      hasTileUp: 0
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 0
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 01100011
+    - name: 
+      hasTileUp: 0
       hasTileDown: 1
       hasTileLeft: 1
       hasTileRight: 0
@@ -678,9 +799,10 @@ MonoBehaviour:
       hasTileUpRight: 0
       hasTileDownLeft: 1
       hasTileDownRight: 0
-      tileBase: {fileID: 11400000, guid: 9fabadc5f9f67d143b1c7d2d506221b5, type: 2}
-      code: 
-    - hasTileUp: 1
+      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
+      code: 01101010
+    - name: 
+      hasTileUp: 1
       hasTileDown: 0
       hasTileLeft: 0
       hasTileRight: 1
@@ -689,8 +811,42 @@ MonoBehaviour:
       hasTileDownLeft: 0
       hasTileDownRight: 0
       tileBase: {fileID: 11400000, guid: 79946d3ea38842b48ac9b5cf84e6a488, type: 2}
-      code: 
-    - hasTileUp: 1
+      code: 10010100
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 79946d3ea38842b48ac9b5cf84e6a488, type: 2}
+      code: 10011100
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 79946d3ea38842b48ac9b5cf84e6a488, type: 2}
+      code: 10010101
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 79946d3ea38842b48ac9b5cf84e6a488, type: 2}
+      code: 10011101
+    - name: 
+      hasTileUp: 1
       hasTileDown: 0
       hasTileLeft: 1
       hasTileRight: 0
@@ -699,38 +855,53 @@ MonoBehaviour:
       hasTileDownLeft: 0
       hasTileDownRight: 0
       tileBase: {fileID: 11400000, guid: 5f5af840e97d6c647854054d1c1d1006, type: 2}
-      code: 
-    - hasTileUp: 0
-      hasTileDown: 1
-      hasTileLeft: 0
-      hasTileRight: 1
-      hasTileUpLeft: 0
+      code: 10101000
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 5f5af840e97d6c647854054d1c1d1006, type: 2}
+      code: 10101100
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
       hasTileUpRight: 0
       hasTileDownLeft: 1
-      hasTileDownRight: 1
-      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
-      code: 
-    - hasTileUp: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 5f5af840e97d6c647854054d1c1d1006, type: 2}
+      code: 10101010
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 0
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 5f5af840e97d6c647854054d1c1d1006, type: 2}
+      code: 10101110
+    - name: 
+      hasTileUp: 1
       hasTileDown: 1
       hasTileLeft: 1
       hasTileRight: 0
-      hasTileUpLeft: 0
+      hasTileUpLeft: 1
       hasTileUpRight: 0
       hasTileDownLeft: 1
-      hasTileDownRight: 1
-      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
-      code: 
-    - hasTileUp: 0
-      hasTileDown: 1
-      hasTileLeft: 0
-      hasTileRight: 1
-      hasTileUpLeft: 0
-      hasTileUpRight: 1
-      hasTileDownLeft: 1
-      hasTileDownRight: 1
-      tileBase: {fileID: 11400000, guid: 72612792a71b1df4ca2047ef5c0fbf5c, type: 2}
-      code: 
-    - hasTileUp: 0
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 9fabadc5f9f67d143b1c7d2d506221b5, type: 2}
+      code: 11101010
+    - name: 
+      hasTileUp: 1
       hasTileDown: 1
       hasTileLeft: 1
       hasTileRight: 0
@@ -738,8 +909,96 @@ MonoBehaviour:
       hasTileUpRight: 0
       hasTileDownLeft: 1
       hasTileDownRight: 1
-      tileBase: {fileID: 11400000, guid: 7092514651082e84fabcfb5d4e59b381, type: 2}
-      code: 
+      tileBase: {fileID: 11400000, guid: 9fabadc5f9f67d143b1c7d2d506221b5, type: 2}
+      code: 11101011
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 0
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 9fabadc5f9f67d143b1c7d2d506221b5, type: 2}
+      code: 11101110
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 21b36f40eb61d3f47b3a9c6863333d81, type: 2}
+      code: 11010101
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 21b36f40eb61d3f47b3a9c6863333d81, type: 2}
+      code: 11010111
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 0
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 21b36f40eb61d3f47b3a9c6863333d81, type: 2}
+      code: 11011101
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 0
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: d20455cf0890e6c46a87008b3f75ded4, type: 2}
+      code: 11111011
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 0
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 5f221e9ec3a35e94d947a77d625d07a7, type: 2}
+      code: 11110111
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 1
+      hasTileDownRight: 0
+      tileBase: {fileID: 11400000, guid: 44efc2e5dfa677443809fe3db68bfc69, type: 2}
+      code: 11110111
+    - name: 
+      hasTileUp: 1
+      hasTileDown: 1
+      hasTileLeft: 1
+      hasTileRight: 1
+      hasTileUpLeft: 1
+      hasTileUpRight: 1
+      hasTileDownLeft: 0
+      hasTileDownRight: 1
+      tileBase: {fileID: 11400000, guid: 1ccf734606b19304faaa94d591ddb5ec, type: 2}
+      code: 11110111
   GeneratorData: {fileID: 1763139036}
   debugRays: {fileID: 1932482926}
   debugRayMaterial: {fileID: 2100000, guid: b12eb32eda56f0241a633c3c06b9b5ce, type: 2}

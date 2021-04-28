@@ -17,6 +17,8 @@ public class TilesetMap
 [Serializable]
 public class WallTile
 {
+    public string name;
+
     public bool hasTileUp;
     public bool hasTileDown;
     public bool hasTileLeft;

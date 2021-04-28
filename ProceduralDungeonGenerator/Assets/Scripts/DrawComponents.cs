@@ -43,6 +43,7 @@ public class DrawComponents : MonoBehaviour
             code += tile.hasTileDownRight ? "1" : "0";
 
             tile.code = code;
+            if (tile.name == "") tile.name = tile.tileBase.name;
         }
     }
 
@@ -51,7 +52,6 @@ public class DrawComponents : MonoBehaviour
         SetupTileWallCodes();
         DrawGroundTiles(groundTilePositions);
         DrawWallTiles(groundTilePositions);
-        RemoveWallsFromDoorPos(rooms);
     }
     
     private void DrawGroundTiles(HashSet<Vector2Int> groundTilePositions)
@@ -60,14 +60,10 @@ public class DrawComponents : MonoBehaviour
         {
             TILEMAP_BASE.SetTile(Utils.Vector2IntToVector3Int(pos), Find_Tilebase_Ground());
         }
-
-        DrawWallTiles(groundTilePositions);
     }
     
     private void DrawWallTiles(HashSet<Vector2Int> groundTilePositions)
     {
-        List<Vector2Int> wallTilePositions = new List<Vector2Int>();
-        
         foreach (var pos in groundTilePositions)
         {
             string code = FindSuitableWallType(groundTilePositions, pos);
@@ -76,10 +72,7 @@ public class DrawComponents : MonoBehaviour
             if (wall == null) continue;
             
             TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(pos), wall);
-            wallTilePositions.Add(pos);
         }
-        
-        
     }
 
     private string FindSuitableWallType(HashSet<Vector2Int> groundTilePositions, Vector2Int pos)
@@ -114,62 +107,6 @@ public class DrawComponents : MonoBehaviour
         }
 
         return null;
-    }
-    
-    private void RemoveWallsFromDoorPos(List<Room> rooms)
-    {
-        foreach (var room in rooms)
-        {
-            foreach (var door in room.doors)
-            {
-                int length = door.length / 2;
-        
-                if (door.isHorizontal)
-                {
-                    if (door.centrePos.y > room.centrePos.y)  //Door at top
-                    {
-                        for (int i = 0; i <= length; i++)
-                        {
-                            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, i,1)), null);
-                            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -i,1)), null);
-                        }   
-                    }
-                    else //Door at bottom
-                    {
-                        for (int i = 0; i <= length; i++)
-                        {
-                            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, i,0)), null);
-                            TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -i,0)), null);
-                        }   
-                        
-                        //Set door edges
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, length + 1,0)), TILESET_MAP.LEFT_CORNER_WALL_TILEBASE);
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, -length - 1,0)), TILESET_MAP.RIGHT_CORNER_WALL_TILEBASE);
-                    }
-                }
-                else //Door at either left or right
-                {
-                    for (int i = 0; i <= length; i++)
-                    {
-                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,i)), null);
-                        TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,-i)), null);
-                    }   
-                    
-                    //Set door edges
-        
-                    if (door.centrePos.x > room.centrePos.x) //Door at right
-                    {
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0, length + 1)), TILESET_MAP.DOWN_RIGHT_WALL_END);
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,-length - 1)), TILESET_MAP.UP_RIGHT_WALL_END);
-                    }
-                    else //Door at left
-                    {
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0, length + 1)), TILESET_MAP.DOWN_LEFT_WALL_END);
-                        // TILEMAP_WALL.SetTile(Utils.Vector2IntToVector3Int(Utils.AddNumberToV2Int(door.centrePos, 0,-length - 1)), TILESET_MAP.UP_LEFT_WALL_END);
-                    }
-                }
-            }
-        }
     }
 
     public void SetupCorridorRays(List<Corridor> corridors)
