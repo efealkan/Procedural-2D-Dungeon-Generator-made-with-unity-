@@ -135,9 +135,11 @@ public class ScreenShotMaker : MonoBehaviour
         renderCamera.targetTexture = null;
      
         byte[] bytes = virtualPhoto.EncodeToPNG();
-        
-        string file_path = Application.persistentDataPath + "/" + "myDungeon.png";
-        Debug.Log(file_path);
-        System.IO.File.WriteAllBytes(file_path, bytes);
+        JsBridge.SendImageToJs(bytes);
+
+        // Save dungeon to the application path!
+        // string file_path = Application.persistentDataPath + "/" + "myDungeon.png";
+        // Debug.Log(file_path);
+        // System.IO.File.WriteAllBytes(file_path, bytes);
     }
 }
