@@ -27,6 +27,13 @@ public class DungeonGenerator : MonoBehaviour
         GeneratorData = GetComponent<DungeonGeneratorData>();
         DrawHandler = GetComponent<DrawComponents>();
 
+        GenerateDungeon();
+    }
+
+    public void GenerateDungeon()
+    {
+        ResetDungeon();
+        
         if (GeneratorData.numberOfRoomsMin > GeneratorData.numberOfRoomsMax)
         {
             Debug.LogError("Number Rooms Min IS BIGGER than Number Room MAX: ERROR!");
@@ -41,6 +48,17 @@ public class DungeonGenerator : MonoBehaviour
         GenerateRooms();
         GenerateCorridors();
         DrawCall();
+    }
+
+    private void ResetDungeon()
+    {
+        chunks = new List<Chunk>();
+        rooms = new List<Room>();
+        corridors = new List<Corridor>();
+        groundTilePositions = new HashSet<Vector2Int>();
+        
+        DrawHandler.ClearAllTiles();
+        MST.Clear();
     }
 
     private void GenerateBasemap()

@@ -53,6 +53,14 @@ public class DrawComponents : MonoBehaviour
         DrawGroundTiles(groundTilePositions);
         DrawWallTiles(groundTilePositions);
     }
+
+    public void ClearAllTiles()
+    {
+        TILEMAP_BASE.ClearAllTiles();
+        TILEMAP_WALL.ClearAllTiles();
+        DestroyCorridorRays();
+        corridorRaysToggled = false;
+    }
     
     private void DrawGroundTiles(HashSet<Vector2Int> groundTilePositions)
     {
