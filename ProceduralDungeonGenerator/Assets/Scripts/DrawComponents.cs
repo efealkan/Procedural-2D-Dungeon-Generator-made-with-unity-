@@ -10,6 +10,7 @@ public class DrawComponents : MonoBehaviour
     [Header("Tilemap")]
     public Tilemap TILEMAP_BASE;
     public Tilemap TILEMAP_WALL;
+    public Tilemap TILEMAP_LADDER;
 
     [Header("Tileset")]
     public TilesetMap TILESET_MAP;
@@ -58,8 +59,19 @@ public class DrawComponents : MonoBehaviour
     {
         TILEMAP_BASE.ClearAllTiles();
         TILEMAP_WALL.ClearAllTiles();
+        TILEMAP_LADDER.ClearAllTiles();
         DestroyCorridorRays();
         corridorRaysToggled = false;
+    }
+
+    public void DrawEntrance(Room room)
+    {
+        TILEMAP_LADDER.SetTile(Utils.Vector2IntToVector3Int(room.centrePos), TILESET_MAP.LADDER);
+    }
+
+    public void RemoveEntrance(Room room)
+    {
+        TILEMAP_LADDER.SetTile(Utils.Vector2IntToVector3Int(room.centrePos), null);
     }
     
     private void DrawGroundTiles(HashSet<Vector2Int> groundTilePositions)

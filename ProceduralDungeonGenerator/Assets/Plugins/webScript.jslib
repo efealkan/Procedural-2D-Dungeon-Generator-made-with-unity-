@@ -1,7 +1,6 @@
 mergeInto(LibraryManager.library, {
 
   CreateImage: function (array, size, fileNamePtr) {
-    window.alert("Hello, world!");
 
     var fileName = UTF8ToString(fileNamePtr);
  

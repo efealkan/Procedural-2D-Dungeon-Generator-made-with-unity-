@@ -25,7 +25,7 @@ public class MST
                 Room r1 = rooms[i];
                 Room r2 = rooms[j];
                 
-                corridors.Add(new Corridor(r1, r2, CalculateDistance(r1, r2)));
+                corridors.Add(new Corridor(r1, r2, Utils.CalculateDistance(r1, r2)));
             }
         }
 
@@ -61,16 +61,6 @@ public class MST
         }
 
         return corridorsInMst;
-    }
-
-    /// <summary>
-    /// Calculates Euclidean distance between two rooms.
-    /// </summary>
-    private static int CalculateDistance(Room r1, Room r2)
-    {
-        int x = (int) Math.Pow(r1.centrePos.x - r2.centrePos.x, 2);
-        int y = (int) Math.Pow(r1.centrePos.y - r2.centrePos.y, 2);
-        return (int) Math.Sqrt(x + y);
     }
 }
 
