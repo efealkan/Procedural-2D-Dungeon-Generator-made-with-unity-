@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class DungeonGenerator : MonoBehaviour
 {
+    [HideInInspector] public static DungeonGenerator instance;
+    
     private DungeonGeneratorData GeneratorData;
     private DrawComponents DrawHandler;
 
@@ -17,13 +19,21 @@ public class DungeonGenerator : MonoBehaviour
     private List<Corridor> corridors = new List<Corridor>();
     
     private HashSet<Vector2Int> groundTilePositions = new HashSet<Vector2Int>();
+
+    private Room entrance;
+    private Room exit;
     
     private Vector2Int roomSizeRange;
     
     private int numberOfRooms;
 
+    private bool has_entrance = true;
+
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(this);
+        
         GeneratorData = GetComponent<DungeonGeneratorData>();
         DrawHandler = GetComponent<DrawComponents>();
 
@@ -47,9 +57,26 @@ public class DungeonGenerator : MonoBehaviour
         GenerateChunks();
         GenerateRooms();
         GenerateCorridors();
+        GenerateDungeonEntrance();
         DrawCall();
     }
 
+    public void SetDungeonEntrance(bool boolean)
+    {
+        has_entrance = boolean;
+
+        if (has_entrance)
+        {
+            DrawHandler.DrawEntrance(entrance);
+            DrawHandler.DrawEntrance(exit);
+        }
+        else
+        {
+            DrawHandler.RemoveEntrance(entrance);
+            DrawHandler.RemoveEntrance(exit);
+        }
+    } 
+    
     private void ResetDungeon()
     {
         chunks = new List<Chunk>();
@@ -179,8 +206,31 @@ public class DungeonGenerator : MonoBehaviour
         }
     }
 
+    private void GenerateDungeonEntrance()
+    {
+        entrance = rooms[Random.Range(0, rooms.Count)];
+
+        int maxDist = 0;
+        foreach (var room in rooms)
+        {
+            if (room.Equals(entrance)) continue;
+            int dist = Utils.CalculateDistance(entrance, room);
+            if (dist > maxDist)
+            {
+                maxDist = dist;
+                exit = room;
+            }
+        }
+    }
+
     private void DrawCall()
     {
         DrawHandler.Draw(groundTilePositions, rooms);
+
+        if (has_entrance)
+        {
+            DrawHandler.DrawEntrance(entrance);
+            DrawHandler.DrawEntrance(exit);
+        }
     }
 }

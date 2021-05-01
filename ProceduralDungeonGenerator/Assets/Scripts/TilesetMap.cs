@@ -12,6 +12,8 @@ public class TilesetMap
     public TileBase[] ALTERNATIVE_GROUND_TILEBASE;
 
     public WallTile[] WALL_TILES;
+
+    public TileBase LADDER;
 }
 
 [Serializable]

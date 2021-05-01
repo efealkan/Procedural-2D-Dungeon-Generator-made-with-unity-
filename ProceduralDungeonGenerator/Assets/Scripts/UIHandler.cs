@@ -2,17 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
     public InputField numberOfRoomsMin_IF;
     public InputField numberOfRoomsMax_IF;
-
     public InputField avgRoomSize_IF;
     public InputField corridorWidth_IF;
-
     public InputField dungeonOldnessLevel_IF;
+
+    public Toggle use_entrance_Toggle;
 
     public GameObject dungeonSettings;
 
@@ -27,14 +28,24 @@ public class UIHandler : MonoBehaviour
     private Vector2Int oldLvlRange = new Vector2Int(0, 10);
 
     private bool dungeonSettingsEnabled = true;
+    private bool use_entrance = true;
 
-    public void Awake()
+    private void Awake()
     {
         numberOfRoomsMin_IF.text = GeneratorData.numberOfRoomsMin.ToString();
         numberOfRoomsMax_IF.text = GeneratorData.numberOfRoomsMax.ToString();
         avgRoomSize_IF.text = GeneratorData.averageRoomSize.ToString();
         corridorWidth_IF.text = GeneratorData.corridorWidth.ToString();
         dungeonOldnessLevel_IF.text = GeneratorData.oldnessLevel.ToString();
+    }
+
+    private void FixedUpdate()
+    {
+        if (use_entrance != use_entrance_Toggle.isOn)
+        {
+            use_entrance = use_entrance_Toggle.isOn;
+            DungeonGenerator.instance.SetDungeonEntrance(use_entrance);
+        }
     }
 
     public void HideButton()
@@ -71,6 +82,12 @@ public class UIHandler : MonoBehaviour
             error_text.gameObject.SetActive(false);
             Generator.GenerateDungeon();
         }
+    }
+
+    public void ChangeBgColorButton()
+    {
+        Color color = EventSystem.current.currentSelectedGameObject.GetComponent<Image>().color;
+        Camera.main.backgroundColor = color;
     }
 
     private bool InputChecker(int nRoomsMin, int nRoomsMax, int aRoomS, int cWidth, int oldLvl)
